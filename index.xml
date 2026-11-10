@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" name="Jakob Gille Scripts" commit="a4c74d98e4bab49392417573ee5c7c86d75d0af9">
+  <category name="Tracks">
+    <reapack name="CreateTracksUnderParentFolder.lua" type="script" desc="Create Tracks Under Parent Folder (Per-Channel Routing)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Creates a new parent folder track at the end of the track list with N child tracks underneath it (N is entered by the user). Every child track uses its native parent send to reach its own parent channel: Child 1: channel 1 -> parent channel 1 Child 2: channel 1 -> parent channel 2 Child 3: channel 1 -> parent channel 3 ... (parent send channel offset = i - 1, parent send channel count = 1, i.e. mono channels, not stereo groups) The parent track gets the user-selected channel count and forwards all of its channels 1..N to the master channels 1..N through its own main send (C_MAINSEND_NCH = N). No explicit sends are created on the normal path. On REAPER versions that do not accept these main-send settings, the script falls back to explicit mono sends (a note about this is printed to the REAPER console only when DEBUG is enabled at the top of the script).\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Notes:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER limits every track to 64 channels, so N must be between 1 and 64.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER tracks use even channel counts, so N is rounded up to the next even number for the parent and the master.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab The child tracks are plain stereo (2-channel) tracks, independent of the project default track channel count.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Everything is wrapped in a single undo block, so one Ctrl+Z removes the complete structure again.\sa180\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.3" author="Jakob Gille &amp; Cline AI" time="2026-11-10T10:50:04Z">
+        <changelog><![CDATA[+ 1.3: Console output is now disabled by default. Set DEBUG at the top
+  of the script to true to print status and fallback notes to the
+  REAPER console.
++ 1.2: Children are plain stereo (2-channel) tracks, independent of the
+  project default track channel count.]]></changelog>
+        <source main="main">https://github.com/JakobGille/Reapack/raw/865f5e88e41c291b94027a52ac28d3cc4e07fc4a/Tracks/CreateTracksUnderParentFolder.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Utility">
+    <reapack name="AutoMuteInvisibleTracks.lua" type="script" desc="Auto Mute Invisible Tracks (CPU saver)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Saves CPU resources in two ways: tracks that are currently scrolled out of the visible arrangement area are automatically muted (rule A), and muted tracks always get their FX chain switched off (rule B - the real CPU lever, because REAPER keeps processing the FX of muted tracks). When a track comes back into view, its original mute state is restored after a short debounce. Tracks hidden via the Track Manager or in collapsed folders are not touched; record-armed and frozen tracks are always left alone. Start: run the script once - it runs in the background (defer loop). Stop: run it again - everything is restored. Changes made by the script appear in the next undo point. IMPORTANT: stop the script before rendering/exporting (invisible tracks would be muted in the render). Re-enabling FX chains can cause short PDC/latency jumps. REQUIRES js_ReaScriptAPI (determines the visible area; without it, rule A is suspended and only rule B stays active).\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="Jakob Gille" time="2026-11-10T10:53:11Z">
+        <changelog><![CDATA[+ 1.0: Initial release]]></changelog>
+        <source main="main">https://github.com/JakobGille/Reapack/raw/a4c74d98e4bab49392417573ee5c7c86d75d0af9/Utility/AutoMuteInvisibleTracks.lua</source>
+      </version>
+    </reapack>
+    <reapack name="ProjectTimeTracker.lua" type="script" desc="Project Time Tracker (Scalable UI, Edit Mode &amp; Monthly Heatmap)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Tracks active project working time based on audio playback, recording, mouse movement (strictly restricted to REAPER foreground/windows), and project state changes. Features a scalable UI, manual time editing, per-plugin time tracking, a GitHub-style monthly activity heatmap with day inspector, and persistent project storage (.rpp).\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.6" author="Jakob Gille &amp; Mistral AI" time="2026-11-10T10:53:11Z">
+        <source main="main">https://github.com/JakobGille/Reapack/raw/a4c74d98e4bab49392417573ee5c7c86d75d0af9/Utility/ProjectTimeTracker.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <metadata>
+    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Jakob Gille Scripts (REAPER ReaPack Repository)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 A ReaPack repository with REAPER ReaScripts.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Packages\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Create Tracks Under Parent Folder (Per-Channel Routing)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Creates a new parent folder track at the end of the track list with N child tracks underneath it (N is entered by the user). Every child track uses its native parent send to reach its own parent channel:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Child 1: channel 1 \u8594 ? parent channel 1\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Child 2: channel 1 \u8594 ? parent channel 2\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Child 3: channel 1 \u8594 ? parent channel 3\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ...\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The parent track gets the user-selected channel count and forwards all of its channels 1..N to the master channels 1..N through its own main send. Child tracks are plain stereo (2-channel) tracks, independent of the project default track channel count. Everything is wrapped in a single undo block, so one Ctrl+Z removes the complete structure again.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Auto Mute Invisible Tracks (CPU Saver)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Automatically mutes tracks that are scrolled out of the visible arrangement area and switches off the FX chain of muted tracks (the real CPU lever, since REAPER keeps processing FX of muted tracks). When a track becomes visible again, its original mute state is restored after a short debounce. Requires the js_ReaScriptAPI extension for full functionality (visibility detection); without it, only the "FX follows mute" rule stays active.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Project Time Tracker (Scalable UI, Edit Mode & Monthly Heatmap)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Tracks active project working time based on audio playback, recording, mouse movement (strictly restricted to REAPER foreground/windows), and project state changes. Features a scalable UI, manual time editing, per-plugin time tracking, and a GitHub-style monthly activity heatmap with day inspector. All data is stored in the project (.rpp), so it travels with the project.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Installation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Via ReaPack (recommended)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Import this repository in REAPER (Extensions \u8594 ? ReaPack \u8594 ? Manage repositories \u8594 ? Import\u8230 ?) with the URL:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 https://github.com/JakobGille/ReaPack/raw/master/index.xml\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Then install the packages from the "Tracks" and "Utility" categories in the package browser.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Manually\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Download {\f1 Tracks/CreateTracksUnderParentFolder.lua}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Copy it into REAPER's Scripts folder (Options \u8594 ? Show REAPER resource path in explorer/finder \u8594 ? Scripts)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Actions \u8594 ? Show action list \u8594 ? New action\u8230 ? \u8594 ? Load ReaScript\u8230 ?\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER with ReaPack (for the ReaPack installation method)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://github.com/ReaTeam/Extensions"}}{\fldrslt{\ul
+js_ReaScriptAPI
+}}}
+ is required for "Auto Mute Invisible Tracks" (visibility detection) and recommended for "Project Time Tracker" (foreground window detection). Installable via ReaPack from the "ReaTeam Extensions" repository.\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 MIT \u8212- see {\field{\*\fldinst{HYPERLINK "LICENSE"}}{\fldrslt{\ul
+LICENSE
+}}}
+.\par}
+}
+]]></description>
+  </metadata>
+</index>
